@@ -22,6 +22,16 @@
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
+            @can('admin')
+                <flux:sidebar.nav>
+                    <flux:sidebar.group heading="運営者" class="grid">
+                        <flux:sidebar.item icon="wrench-screwdriver" :href="route('admin.terms.index')" :current="request()->routeIs('admin.*')" wire:navigate>
+                            言葉の管理
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                </flux:sidebar.nav>
+            @endcan
+
             <flux:spacer />
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
