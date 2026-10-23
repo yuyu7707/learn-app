@@ -9,7 +9,9 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-@fonts
+{{-- 見出しは Zen Maru Gothic、本文は Noto Sans JP（スライドと同じ） --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-@fluxAppearance

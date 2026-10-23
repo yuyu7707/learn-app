@@ -9,7 +9,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Zen Maru Gothic', 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
+
+    /* スライドと同じ配色 */
+    --color-cream: #FBF6EE;      /* 背景 */
+    --color-cream-alt: #F2EBDF;  /* サイドバー・薄い面 */
+    --color-card: #FFFDF9;       /* カード */
+    --color-line: #E8DFD0;       /* 枠線 */
+    --color-brand: #D9692E;      /* オレンジ（強調・選択中） */
+    --color-brand-dark: #A8501F; /* オレンジの文字・ボタン（白文字とのコントラスト確保） */
+    --color-navy: #23405F;       /* 紺（見出しラベル） */
+    --color-sky-card: #DCE8F2;   /* 水色のカード */
+    --color-peach: #FBE3D3;      /* たとえ・考え方のポイント */
+    --color-ink: #2A2833;        /* 本文 */
+    --color-ink-muted: #55504A;  /* 補足の文字 */
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -23,20 +37,18 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    /* Flux の primary ボタンやリンクの色 */
+    --color-accent: var(--color-brand-dark);
+    --color-accent-content: var(--color-brand-dark);
     --color-accent-foreground: var(--color-white);
 }
 
-@layer theme {
-    .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
-    }
-}
-
 @layer base {
+
+    /* 中高年にも読みやすいよう、文字の基準を 18px にする（rem で作られた部品も一緒に大きくなる） */
+    html {
+        font-size: 112.5%;
+    }
 
     *,
     ::after,
@@ -45,6 +57,11 @@
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
     }
+}
+
+/* ボタンは指で押しやすい高さ（48px 以上）に */
+[data-flux-button] {
+    min-height: 3rem;
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {
