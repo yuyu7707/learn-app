@@ -22,19 +22,19 @@ new #[Title('今日の格言')] class extends Component {
     @if ($this->quote)
         {{-- 空と草原の中の木の看板 --}}
         <div class="relative rounded-3xl bg-linear-to-b from-sky-card via-sky-card to-mint px-5 pt-6 pb-4">
-            <div class="rounded-2xl border-[10px] border-wood bg-wood-light px-5 py-8 shadow-md">
+            <div class="animate-rise rounded-2xl border-[10px] border-wood bg-wood-light px-5 py-8 shadow-md">
                 <p class="text-center font-heading text-2xl font-bold leading-loose text-ink" data-test="quote-body">
                     {!! nl2br(e($this->quote->body)) !!}
                 </p>
             </div>
             <div class="mt-3 flex items-end justify-between px-2">
-                <span class="text-4xl" aria-hidden="true">🌼</span>
-                <span class="text-5xl" aria-hidden="true">🌱</span>
-                <span class="text-5xl" aria-hidden="true">🐱</span>
+                <span class="inline-block origin-bottom animate-sway text-4xl" aria-hidden="true">🌼</span>
+                <span class="inline-block animate-grow text-5xl" aria-hidden="true">🌱</span>
+                <span class="inline-block origin-bottom animate-sway text-5xl" aria-hidden="true">🐱</span>
             </div>
         </div>
 
-        <section class="rounded-3xl bg-mint p-6">
+        <section class="animate-rise rounded-3xl bg-mint p-6" style="animation-delay: 300ms">
             <h2 class="font-heading text-xl font-bold text-mint-dark">🌱 この格言の意味</h2>
             <p class="mt-2 leading-loose text-ink" data-test="quote-meaning">{{ $this->quote->meaning }}</p>
         </section>

@@ -42,14 +42,14 @@ new class extends Component {
     </div>
 
     {{-- 見出しの帯 --}}
-    <div class="rounded-3xl bg-pink-soft px-6 py-5 text-center">
+    <div class="animate-rise rounded-3xl bg-pink-soft px-6 py-5 text-center">
         <flux:heading size="xl" level="1" class="font-heading text-3xl !text-pink-dark">{{ $term->name }}</flux:heading>
         <p class="mt-2 font-heading font-bold text-pink-dark">〜{{ $term->summary }}〜</p>
     </div>
 
     {{-- 絵の場所（イラストができたら差し替える） --}}
     <div class="flex flex-col items-center gap-4 rounded-3xl bg-linear-to-b from-sky-card to-mint px-6 pt-6 pb-5">
-        <span class="text-8xl leading-none" aria-hidden="true">{{ $term->icon ?? '🌱' }}</span>
+        <span class="inline-block animate-grow text-8xl leading-none" aria-hidden="true">{{ $term->icon ?? '🌱' }}</span>
         <x-mascot :message="$term->name.'って、なんだろう？'" />
     </div>
 

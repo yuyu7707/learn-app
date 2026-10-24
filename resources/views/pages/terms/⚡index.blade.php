@@ -23,7 +23,7 @@ new #[Title('言葉を選ぼう')] class extends Component {
     <ol class="flex flex-col gap-4">
         @forelse ($this->terms as $term)
             @php($numberColor = ['bg-num-1', 'bg-num-2', 'bg-num-3', 'bg-num-4', 'bg-num-5'][$loop->index % 5])
-            <li wire:key="term-{{ $term->id }}">
+            <li wire:key="term-{{ $term->id }}" class="animate-rise" style="animation-delay: {{ $loop->index * 100 }}ms">
                 <a
                     href="{{ route('terms.show', $term) }}"
                     wire:navigate
