@@ -19,6 +19,16 @@
             @endif
         </section>
 
+        {{-- 今日の格言 --}}
+        @php($quote = \App\Models\Quote::today())
+        @if ($quote)
+            <a href="{{ route('quotes.today') }}" wire:navigate class="block rounded-2xl border-4 border-wood bg-wood-light p-6 transition hover:brightness-105" data-test="quote-card">
+                <p class="text-sm font-bold text-brand-dark">✨ 今日の格言</p>
+                <p class="mt-2 font-heading text-xl font-bold leading-relaxed text-ink">{!! nl2br(e($quote->body)) !!}</p>
+                <p class="mt-3 font-bold text-pink">意味を読む →</p>
+            </a>
+        @endif
+
         {{-- 用語を学ぶ --}}
         <section class="rounded-2xl border border-line bg-card p-6">
             <h2 class="font-heading text-2xl font-bold text-ink">📖 投資の言葉を学ぶ</h2>

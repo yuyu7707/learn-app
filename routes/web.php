@@ -12,6 +12,8 @@ Route::middleware(['auth'])->group(function () {
     Route::livewire('terms', 'pages::terms.index')->name('terms.index');
     Route::livewire('terms/{term}', 'pages::terms.show')->name('terms.show');
     Route::livewire('terms/{term}/quiz', 'pages::terms.quiz')->name('terms.quiz');
+
+    Route::livewire('quote', 'pages::quotes.today')->name('quotes.today');
 });
 
 // 管理画面（運営者のみ）

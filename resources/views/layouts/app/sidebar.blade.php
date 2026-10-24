@@ -14,6 +14,9 @@
                 <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     ホーム
                 </flux:sidebar.item>
+                <flux:sidebar.item icon="sparkles" :href="route('quotes.today')" :current="request()->routeIs('quotes.*')" wire:navigate>
+                    今日の格言
+                </flux:sidebar.item>
                 <flux:sidebar.item icon="book-open-text" :href="route('terms.index')" :current="request()->routeIs('terms.*')" wire:navigate>
                     言葉を学ぶ
                 </flux:sidebar.item>

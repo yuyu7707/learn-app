@@ -20,6 +20,7 @@ class TermFactory extends Factory
         return [
             'slug' => fake()->unique()->slug(2),
             'name' => fake()->unique()->word(),
+            'icon' => '🌱',
             'summary' => fake()->sentence(),
             'explanation' => fake()->paragraph(),
             'analogy' => fake()->sentence(),

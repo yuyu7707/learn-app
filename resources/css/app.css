@@ -25,6 +25,22 @@
     --color-ink: #2A2833;        /* 本文 */
     --color-ink-muted: #55504A;  /* 補足の文字 */
 
+    /* 企画のイメージ画像（レッスン画面）の配色 */
+    --color-pink: #C93B66;       /* つぎへボタン（白文字とのコントラスト確保） */
+    --color-pink-soft: #FDE8EE;  /* 見出しの帯・選択中 */
+    --color-pink-dark: #8E2343;  /* 見出しの文字 */
+    --color-mint: #E4F4EC;       /* ポイント・意味の欄 */
+    --color-mint-dark: #1E6A4C;  /* ポイントの見出し */
+    --color-wood: #A9743F;       /* 格言の看板の枠 */
+    --color-wood-light: #F8EBD0; /* 格言の看板 */
+
+    /* 一覧の番号の色（順にくり返す） */
+    --color-num-1: #D94A72;
+    --color-num-2: #2F7DC0;
+    --color-num-3: #7B5CC0;
+    --color-num-4: #D9661E;
+    --color-num-5: #3B9A68;
+
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
     --color-zinc-200: #e5e5e5;
@@ -38,8 +54,8 @@
     --color-zinc-950: #0a0a0a;
 
     /* Flux の primary ボタンやリンクの色 */
-    --color-accent: var(--color-brand-dark);
-    --color-accent-content: var(--color-brand-dark);
+    --color-accent: var(--color-pink);
+    --color-accent-content: var(--color-pink);
     --color-accent-foreground: var(--color-white);
 }
 
@@ -62,6 +78,11 @@
 /* ボタンは指で押しやすい高さ（48px 以上）に */
 [data-flux-button] {
     min-height: 3rem;
+}
+
+/* 「つぎへ」の丸いピンクのボタン */
+.btn-next {
+    @apply flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-pink px-6 font-heading text-xl font-bold text-white shadow-sm transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink;
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {

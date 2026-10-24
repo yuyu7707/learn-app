@@ -45,6 +45,17 @@ test('term detail shows explanation, analogy and points', function () {
         ->assertSee('大きく減りにくくなる');
 });
 
+test('term detail shows its position in the list', function () {
+    Term::factory()->create(['sort_order' => 1]);
+    $second = Term::factory()->create(['sort_order' => 2]);
+    Term::factory()->create(['sort_order' => 3]);
+
+    $this->actingAs(User::factory()->create())
+        ->get(route('terms.show', $second))
+        ->assertOk()
+        ->assertSee('2 / 3');
+});
+
 test('term detail returns 404 for an unknown slug', function () {
     $this->actingAs(User::factory()->create())
         ->get('/terms/unknown-word')

@@ -15,6 +15,7 @@ new class extends Component {
 
     public string $slug = '';
     public string $name = '';
+    public string $icon = '';
     public string $summary = '';
     public string $explanation = '';
     public string $analogy = '';
@@ -45,6 +46,7 @@ new class extends Component {
         $this->term = $term;
         $this->slug = $term->slug;
         $this->name = $term->name;
+        $this->icon = $term->icon ?? '';
         $this->summary = $term->summary;
         $this->explanation = $term->explanation;
         $this->analogy = $term->analogy;
@@ -75,6 +77,7 @@ new class extends Component {
         return [
             'slug' => ['required', 'string', 'max:50', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('terms', 'slug')->ignore($this->term?->id)],
             'name' => ['required', 'string', 'max:50'],
+            'icon' => ['nullable', 'string', 'max:16'],
             'summary' => ['required', 'string', 'max:100'],
             'explanation' => ['required', 'string', 'max:1000'],
             'analogy' => ['required', 'string', 'max:1000'],
@@ -98,6 +101,7 @@ new class extends Component {
         return [
             'slug' => 'URL用の名前',
             'name' => '言葉',
+            'icon' => '絵文字',
             'summary' => 'ひとこと',
             'explanation' => 'やさしい説明',
             'analogy' => '身近なたとえ',
@@ -137,6 +141,7 @@ new class extends Component {
             $term->fill([
                 'slug' => $this->slug,
                 'name' => trim($this->name),
+                'icon' => trim($this->icon) !== '' ? trim($this->icon) : null,
                 'summary' => trim($this->summary),
                 'explanation' => trim($this->explanation),
                 'analogy' => trim($this->analogy),
@@ -182,6 +187,7 @@ new class extends Component {
                 <flux:input wire:model="name" label="言葉" placeholder="例：分散投資" />
                 <flux:input wire:model="slug" label="URL用の名前（半角英小文字）" placeholder="例：diversification" />
             </div>
+            <flux:input wire:model="icon" label="絵文字（一覧と説明に出ます。なくてもよい）" placeholder="例：🧺" class="max-w-60" />
             <flux:input wire:model="summary" label="ひとこと（一覧に出ます）" placeholder="例：お金を、いろいろなところに分けること" />
             <flux:textarea wire:model="explanation" label="やさしい説明（3行くらい）" rows="4" />
             <flux:textarea wire:model="analogy" label="身近なたとえ" rows="3" />

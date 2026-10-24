@@ -21,6 +21,7 @@ class TermSeeder extends Seeder
                 ['slug' => $data['slug']],
                 [
                     'name' => $data['name'],
+                    'icon' => $data['icon'],
                     'summary' => $data['summary'],
                     'explanation' => $data['explanation'],
                     'analogy' => $data['analogy'],
@@ -44,7 +45,7 @@ class TermSeeder extends Seeder
     }
 
     /**
-     * @return list<array{slug: string, name: string, summary: string, explanation: string, analogy: string, points: list<string>, quiz: array{question: string, choices: list<array{0: string, 1: string}>}}>
+     * @return list<array{slug: string, name: string, icon: string, summary: string, explanation: string, analogy: string, points: list<string>, quiz: array{question: string, choices: list<array{0: string, 1: string}>}}>
      */
     private function terms(): array
     {
@@ -52,6 +53,7 @@ class TermSeeder extends Seeder
             [
                 'slug' => 'investment',
                 'name' => '投資',
+                'icon' => '🌱',
                 'summary' => 'お金に働いてもらうこと',
                 'explanation' => '使う予定のないお金を、成長しそうな会社などに託して、時間をかけて増えることを期待することです。預金と違って、増えることもあれば、減ることもあります。',
                 'analogy' => '庭に種をまくようなもの。すぐには実りませんが、時間をかけて育てると、実がなることを期待できます。ただ、天気によっては育たない年もあります。',
@@ -72,6 +74,7 @@ class TermSeeder extends Seeder
             [
                 'slug' => 'compound-interest',
                 'name' => '複利',
+                'icon' => '⛄',
                 'summary' => '増えた分も、また増えていくしくみ',
                 'explanation' => '増えたお金を引き出さずにそのままにしておくと、次はその増えた分にも利益がつきます。これをくり返すことで、時間がたつほど増え方が大きくなります。',
                 'analogy' => '雪だるまづくり。小さな雪玉も、転がすうちに雪がくっついて、どんどん大きくなります。',
@@ -92,6 +95,7 @@ class TermSeeder extends Seeder
             [
                 'slug' => 'diversification',
                 'name' => '分散投資',
+                'icon' => '🧺',
                 'summary' => 'お金を、いろいろなところに分けること',
                 'explanation' => '1つの会社や1つの国だけにお金を集めず、いくつかに分けて投資することです。どこかが下がっても、ほかでカバーできるので、大きく減りにくくなります。',
                 'analogy' => '卵をひとつのカゴに盛らない。カゴを落としても、卵を別々のカゴに分けておけば、全部は割れません。',
@@ -112,6 +116,7 @@ class TermSeeder extends Seeder
             [
                 'slug' => 'risk',
                 'name' => 'リスク',
+                'icon' => '🎢',
                 'summary' => '結果の「ふれはば」のこと',
                 'explanation' => 'ふだんの「リスク」は「危険」という意味ですが、投資では「結果がどのくらい上下にぶれるか」という意味で使います。リスクが大きいほど、大きく増えることも、大きく減ることもあります。',
                 'analogy' => 'ジェットコースターと観覧車。ジェットコースターは上がり下がりが大きく、観覧車はゆっくりです。どちらも、乗る人の好みや体調に合わせて選びます。',
@@ -132,6 +137,7 @@ class TermSeeder extends Seeder
             [
                 'slug' => 'start-at-50',
                 'name' => '50歳からの投資',
+                'icon' => '🏡',
                 'summary' => '50歳からでも、知って選ぶ価値がある',
                 'explanation' => 'お金を使う時期は、仕事をやめたあとも長く続きます。預金だけでなく「お金を育てる」という選択肢を知っておくと、これからのお金を自分で考えやすくなります。始めるかどうかは、あなたが決めてよいことです。始めるなら、生活に使うお金を先に分けておきましょう。',
                 'analogy' => '50歳から始める家庭菜園。若いころから始めた人と比べなくても、自分の庭の広さに合わせて育てれば、ちゃんと実りを楽しめます。',

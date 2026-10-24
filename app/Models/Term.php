@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $slug
  * @property string $name
+ * @property string|null $icon
  * @property string $summary
  * @property string $explanation
  * @property string $analogy
@@ -22,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read QuizQuestion|null $quizQuestion
  */
-#[Fillable(['slug', 'name', 'summary', 'explanation', 'analogy', 'points', 'sort_order'])]
+#[Fillable(['slug', 'name', 'icon', 'summary', 'explanation', 'analogy', 'points', 'sort_order'])]
 class Term extends Model
 {
     /** @use HasFactory<TermFactory> */
