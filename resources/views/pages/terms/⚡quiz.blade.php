@@ -8,7 +8,7 @@ use Livewire\Component;
 
 /*
  * 用語クイズ。「正解」「不正解」は出さず、選んだ選択肢の考え方のポイント（feedback）を見せる。
- * 回答は保存しない。
+ * 回答は保存しない。3つめ以降の言葉で答えを選ぶと、おひるね中のミロがねぎらう。
  */
 new class extends Component {
     public Term $term;
@@ -34,6 +34,22 @@ new class extends Component {
         }
 
         return $this->question?->choices->firstWhere('id', $this->selectedChoiceId);
+    }
+
+    /**
+     * 一覧の中で何番目か（例：3 / 5）。
+     *
+     * @return array{position: int, total: int}
+     */
+    #[Computed]
+    public function progress(): array
+    {
+        $ids = Term::query()->orderBy('sort_order')->orderBy('id')->pluck('id');
+
+        return [
+            'position' => (int) $ids->search($this->term->id) + 1,
+            'total' => $ids->count(),
+        ];
     }
 
     public function choose(int $choiceId): void
@@ -92,6 +108,13 @@ new class extends Component {
                 <p class="mt-2 leading-relaxed text-ink">{{ $this->selectedChoice->feedback }}</p>
                 <p class="mt-3 text-sm text-ink-muted">ほかの選択肢も選んで、考え方を見てみましょう。</p>
             </section>
+
+            {{-- 学び進めたごほうび（3つめ以降の言葉） --}}
+            @if ($this->progress['position'] >= 3)
+                <x-miro-nap :message="$this->progress['position'] === $this->progress['total']
+                    ? $this->progress['total'].'つの言葉、ぜんぶ学んだね！'
+                    : $this->progress['position'].'つめまで来たね。'" />
+            @endif
         @else
             <flux:text>選択肢を1つ選んでみてください。</flux:text>
         @endif

@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\QuizChoice;
+use App\Models\QuizQuestion;
 use App\Models\Term;
 use App\Models\User;
+use Livewire\Livewire;
 
 test('言葉の一覧で、ミロが案内する', function () {
     $this->actingAs(User::factory()->create())
@@ -30,10 +33,64 @@ test('言葉の説明では、考えている顔のミロが出る', function ()
         ->assertSee('images/miro-think.jpg', false);
 });
 
-test('ホームの下で、ミロがおひるねしている', function () {
+/**
+ * 並び順に $count 個の言葉を作り、それぞれに選択肢1つのクイズをつける。
+ *
+ * @return list<Term>
+ */
+function createTermsWithQuiz(int $count): array
+{
+    $terms = [];
+
+    foreach (range(1, $count) as $order) {
+        $term = Term::factory()->create(['sort_order' => $order]);
+        $question = QuizQuestion::factory()->for($term)->create();
+        QuizChoice::factory()->for($question, 'question')->create();
+        $terms[] = $term->fresh();
+    }
+
+    return $terms;
+}
+
+test('はじめの言葉のクイズでは、おひるねのミロは出ない', function () {
+    $terms = createTermsWithQuiz(5);
+    $choice = $terms[1]->quizQuestion->choices->first();
+
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::terms.quiz', ['term' => $terms[1]])
+        ->call('choose', $choice->id)
+        ->assertDontSee('ミロも おひるね中');
+});
+
+test('3つめの言葉のクイズで答えを選ぶと、おひるねのミロがねぎらう', function () {
+    $terms = createTermsWithQuiz(5);
+    $choice = $terms[2]->quizQuestion->choices->first();
+
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::terms.quiz', ['term' => $terms[2]])
+        ->assertDontSee('ミロも おひるね中')
+        ->call('choose', $choice->id)
+        ->assertSee('3つめまで来たね。')
+        ->assertSee('ミロも おひるね中')
+        ->assertSee('images/miro-nap.jpg', false);
+});
+
+test('最後の言葉のクイズでは、ぜんぶ学んだことをほめる', function () {
+    $terms = createTermsWithQuiz(5);
+    $choice = $terms[4]->quizQuestion->choices->first();
+
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::terms.quiz', ['term' => $terms[4]])
+        ->call('choose', $choice->id)
+        ->assertSee('5つの言葉、ぜんぶ学んだね！');
+});
+
+test('ホームには、おひるねのミロを出さない', function () {
     $this->actingAs(User::factory()->create())
         ->get(route('dashboard'))
         ->assertOk()
-        ->assertSee('images/miro-nap.jpg', false)
-        ->assertSee('ミロも おひるね中');
+        ->assertDontSee('ミロも おひるね中');
 });
