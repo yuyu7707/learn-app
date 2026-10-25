@@ -3,10 +3,10 @@
     'photo' => 'banzai',
 ])
 
-{{-- 学び進めたときに出る、おひるね中のミロ（ひと休み）。photo は public/images/miro-nap-{photo}.jpg --}}
+{{-- 学び進めたときに出る、おひるね中のミロ（ひと休み）。photo は public/images/miro-nap-{photo}.jpg。写真を差し替えたら ?v= の数字を上げる（端末に残った古い写真を読み直させるため） --}}
 <figure {{ $attributes->class('animate-rise overflow-hidden rounded-2xl border-4 border-wood bg-wood-light') }} data-test="miro-nap">
     <img
-        src="{{ asset('images/miro-nap-'.$photo.'.jpg') }}"
+        src="{{ asset('images/miro-nap-'.$photo.'.jpg').'?v=2' }}"
         alt="{{ ['sofa' => 'ソファで横になって寝ているミロ', 'knit' => 'ニットの上で丸くなって寝ているミロ'][$photo] ?? 'ばんざいして、ビローンと伸びて寝ているミロ' }}"
         width="800"
         height="600"

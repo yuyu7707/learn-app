@@ -3,11 +3,11 @@
     'face' => 'hello',
 ])
 
-{{-- 案内役のミロ（うちの猫）と吹き出し。face は public/images/miro-{face}.jpg --}}
+{{-- 案内役のミロ（うちの猫）と吹き出し。face は public/images/miro-{face}.jpg。写真を差し替えたら ?v= の数字を上げる（端末に残った古い写真を読み直させるため） --}}
 <div {{ $attributes->class('flex items-end gap-3') }}>
     <figure class="flex shrink-0 origin-bottom animate-sway flex-col items-center gap-1">
         <img
-            src="{{ asset('images/miro-'.$face.'.jpg') }}"
+            src="{{ asset('images/miro-'.$face.'.jpg').'?v=2' }}"
             alt="ミロ"
             width="80"
             height="80"
