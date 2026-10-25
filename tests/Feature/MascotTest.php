@@ -11,6 +11,8 @@ test('言葉の一覧で、ミロが案内する', function () {
         ->get(route('terms.index'))
         ->assertOk()
         ->assertSee('images/miro-hello.jpg', false)
+        ->assertSee('ニャー！')
+        ->assertSee('data-sound="nya"', false)
         ->assertSee('ミロだよ。好きな言葉から いっしょに学ぼう！');
 });
 

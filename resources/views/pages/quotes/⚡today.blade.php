@@ -30,7 +30,7 @@ new #[Title('今日の格言')] class extends Component {
             <div class="mt-3 flex items-end justify-between px-2">
                 <span class="inline-block origin-bottom animate-sway text-4xl" aria-hidden="true">🌼</span>
                 <span class="inline-block animate-grow text-5xl" aria-hidden="true">🌱</span>
-                <img src="{{ asset('images/miro-sign.jpg') }}" alt="ミロ" width="64" height="64" class="size-16 origin-bottom animate-sway rounded-full border-4 border-wood object-cover">
+                <img data-sound="nya" src="{{ asset('images/miro-sign.jpg') }}" alt="ミロ" width="64" height="64" class="size-16 origin-bottom animate-sway cursor-pointer rounded-full border-4 border-wood object-cover">
             </div>
         </div>
 

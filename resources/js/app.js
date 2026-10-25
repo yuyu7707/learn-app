@@ -42,7 +42,35 @@ function tone(frequency, start, duration, volume = 0.3, type = 'triangle') {
     oscillator.stop(at + duration);
 }
 
-// pon：選んだとき（ポン） / pikon：つぎへ進むとき（ピコン）
+// 猫の「ニャー」：高さを上げてから下げ、こもった音にして鳴き声に近づける
+function meow() {
+    const oscillator = audioContext.createOscillator();
+    const filter = audioContext.createBiquadFilter();
+    const gain = audioContext.createGain();
+    const at = audioContext.currentTime;
+
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(480, at);
+    oscillator.frequency.linearRampToValueAtTime(780, at + 0.15);
+    oscillator.frequency.linearRampToValueAtTime(860, at + 0.3);
+    oscillator.frequency.exponentialRampToValueAtTime(520, at + 0.65);
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1200, at);
+    filter.frequency.linearRampToValueAtTime(2200, at + 0.2);
+    filter.frequency.linearRampToValueAtTime(1000, at + 0.65);
+
+    gain.gain.setValueAtTime(0.0001, at);
+    gain.gain.exponentialRampToValueAtTime(0.22, at + 0.06);
+    gain.gain.setValueAtTime(0.22, at + 0.4);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.7);
+
+    oscillator.connect(filter).connect(gain).connect(audioContext.destination);
+    oscillator.start(at);
+    oscillator.stop(at + 0.7);
+}
+
+// pon：選んだとき（ポン） / pikon：つぎへ進むとき（ピコン） / nya：ミロを押したとき（ニャー）
 function play(name) {
     if (!soundEnabled()) {
         return;
@@ -61,6 +89,8 @@ function play(name) {
         tone(659, 0, 0.2, 0.32);
         tone(988, 0.12, 0.4, 0.32);
         tone(1976, 0.12, 0.2, 0.06, 'sine');
+    } else if (name === 'nya') {
+        meow();
     } else {
         tone(784, 0, 0.35, 0.35);
         tone(1568, 0, 0.18, 0.08, 'sine');
