@@ -70,6 +70,7 @@ new class extends Component {
                         'border-brand' => $isSelected,
                         'border-line hover:border-brand' => ! $isSelected,
                     ])
+                    data-sound="pon"
                     data-test="quiz-choice"
                 >
                     <span @class([
