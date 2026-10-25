@@ -6,7 +6,7 @@
 <div {{ $attributes->class('flex items-end gap-3') }}>
     <figure class="flex shrink-0 origin-bottom animate-sway flex-col items-center gap-1">
         <img
-            src="{{ asset('images/miro.jpg') }}"
+            src="{{ asset('images/miro-face.jpg') }}"
             alt="ミロ"
             width="80"
             height="80"

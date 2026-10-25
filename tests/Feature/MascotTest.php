@@ -7,7 +7,7 @@ test('言葉の一覧で、ミロが案内する', function () {
     $this->actingAs(User::factory()->create())
         ->get(route('terms.index'))
         ->assertOk()
-        ->assertSee('images/miro.jpg', false)
+        ->assertSee('images/miro-face.jpg', false)
         ->assertSee('ミロだよ。好きな言葉から いっしょに学ぼう！');
 });
 

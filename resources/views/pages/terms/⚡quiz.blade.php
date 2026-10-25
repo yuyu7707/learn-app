@@ -86,7 +86,7 @@ new class extends Component {
         @if ($this->selectedChoice)
             <section class="rounded-2xl bg-peach p-6" aria-live="polite" data-test="quiz-feedback">
                 <p class="flex items-center gap-2 font-bold text-brand-dark">
-                    <img src="{{ asset('images/miro.jpg') }}" alt="" width="40" height="40" class="size-10 rounded-full border-2 border-wood object-cover">
+                    <img src="{{ asset('images/miro-face.jpg') }}" alt="" width="40" height="40" class="size-10 rounded-full border-2 border-wood object-cover">
                     ミロのひとこと
                 </p>
                 <p class="mt-2 leading-relaxed text-ink">{{ $this->selectedChoice->feedback }}</p>
