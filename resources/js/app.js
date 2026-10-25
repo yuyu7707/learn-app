@@ -1,6 +1,8 @@
 /*
  * クリックしたときの、やさしい効果音。
  * 音のファイルは使わず、ブラウザの Web Audio で小さな音を作る。
+ * 会場のスピーカーやパソコンでも聞こえるよう、木琴のような少し太い音（三角波）にし、
+ * 鳴る長さは短くしてうるさくならないようにする。
  * オン・オフはこの端末に覚える（はじめはオン）。
  */
 const STORAGE_KEY = 'learn-sound';
@@ -23,16 +25,16 @@ function setSoundEnabled(enabled) {
     }
 }
 
-// 1つの音（高さ Hz、始まり秒、長さ秒）
-function tone(frequency, start, duration) {
+// 1つの音（高さ Hz、始まり秒、長さ秒、音量 0〜1、音色）
+function tone(frequency, start, duration, volume = 0.3, type = 'triangle') {
     const oscillator = audioContext.createOscillator();
     const gain = audioContext.createGain();
     const at = audioContext.currentTime + start;
 
-    oscillator.type = 'sine';
+    oscillator.type = type;
     oscillator.frequency.value = frequency;
     gain.gain.setValueAtTime(0.0001, at);
-    gain.gain.exponentialRampToValueAtTime(0.15, at + 0.02);
+    gain.gain.exponentialRampToValueAtTime(volume, at + 0.01);
     gain.gain.exponentialRampToValueAtTime(0.0001, at + duration);
 
     oscillator.connect(gain).connect(audioContext.destination);
@@ -40,7 +42,7 @@ function tone(frequency, start, duration) {
     oscillator.stop(at + duration);
 }
 
-// pon：選んだとき / pikon：つぎへ進むとき
+// pon：選んだとき（ポン） / pikon：つぎへ進むとき（ピコン）
 function play(name) {
     if (!soundEnabled()) {
         return;
@@ -56,10 +58,12 @@ function play(name) {
     audioContext.resume();
 
     if (name === 'pikon') {
-        tone(660, 0, 0.18);
-        tone(990, 0.1, 0.3);
+        tone(659, 0, 0.2, 0.32);
+        tone(988, 0.12, 0.4, 0.32);
+        tone(1976, 0.12, 0.2, 0.06, 'sine');
     } else {
-        tone(880, 0, 0.25);
+        tone(784, 0, 0.35, 0.35);
+        tone(1568, 0, 0.18, 0.08, 'sine');
     }
 }
 
