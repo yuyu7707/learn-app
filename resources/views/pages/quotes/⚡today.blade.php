@@ -30,7 +30,7 @@ new #[Title('今日の格言')] class extends Component {
             <div class="mt-3 flex items-end justify-between px-2">
                 <span class="inline-block origin-bottom animate-sway text-4xl" aria-hidden="true">🌼</span>
                 <span class="inline-block animate-grow text-5xl" aria-hidden="true">🌱</span>
-                <img src="{{ asset('images/miro-face.jpg') }}" alt="ミロ" width="64" height="64" class="size-16 origin-bottom animate-sway rounded-full border-4 border-wood object-cover">
+                <img src="{{ asset('images/miro-sign.jpg') }}" alt="ミロ" width="64" height="64" class="size-16 origin-bottom animate-sway rounded-full border-4 border-wood object-cover">
             </div>
         </div>
 
@@ -41,7 +41,7 @@ new #[Title('今日の格言')] class extends Component {
 
         <flux:text class="text-center">明日は、また別の言葉が届きます。</flux:text>
     @else
-        <x-mascot message="格言は、ただいま準備中です。" class="justify-center" />
+        <x-mascot face="peek" message="格言は、ただいま準備中です。" class="justify-center" />
     @endif
 
     <a href="{{ route('terms.index') }}" wire:navigate class="btn-next">

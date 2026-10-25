@@ -1,12 +1,13 @@
 @props([
     'message',
+    'face' => 'hello',
 ])
 
-{{-- 案内役のミロ（うちの猫）と吹き出し --}}
+{{-- 案内役のミロ（うちの猫）と吹き出し。face は public/images/miro-{face}.jpg --}}
 <div {{ $attributes->class('flex items-end gap-3') }}>
     <figure class="flex shrink-0 origin-bottom animate-sway flex-col items-center gap-1">
         <img
-            src="{{ asset('images/miro-face.jpg') }}"
+            src="{{ asset('images/miro-'.$face.'.jpg') }}"
             alt="ミロ"
             width="80"
             height="80"
