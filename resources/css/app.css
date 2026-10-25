@@ -152,3 +152,60 @@ select:focus[data-flux-control] {
         animation: none !important;
     }
 }
+
+/*
+ * 奥行き（色の濃さと影を重ねて、手前と奥をつくる）
+ * 画面の作りは変えず、色と影だけで立体感を出す。
+ */
+
+/* 背景：上から光が当たったように少しずつ濃く。すみにピンクとミントの光 */
+body.bg-cream {
+    background-color: var(--color-cream);
+    background-image:
+        radial-gradient(ellipse 70% 45% at 0% 0%, rgb(253 232 238 / 0.9), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 30%, rgb(228 244 236 / 0.9), transparent 70%),
+        linear-gradient(180deg, #FFFBF5 0%, #FBF6EE 45%, #F3E6D5 100%);
+    background-attachment: fixed;
+}
+
+/* カード：ふんわりした影を2重に、上のふちに光の線 */
+.bg-card,
+.bg-sky-card,
+.bg-peach,
+.bg-mint,
+.bg-pink-soft,
+.bg-wood-light {
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.8),
+        0 1px 2px rgb(120 80 40 / 0.08),
+        0 10px 24px -8px rgb(120 80 40 / 0.22);
+}
+
+.bg-card {
+    background-image: linear-gradient(180deg, #FFFFFF 0%, #FFFBF4 100%);
+}
+
+/* 「つぎへ」ボタン：上が明るく下が濃い。下に厚みの影 */
+.btn-next {
+    background-image: linear-gradient(180deg, #DA5A80 0%, #C93B66 55%, #B3305A 100%);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.35),
+        0 4px 0 var(--color-pink-dark),
+        0 12px 20px -6px rgb(142 35 67 / 0.45);
+}
+
+.btn-next:active {
+    transform: translateY(3px);
+    box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.35),
+        0 1px 0 var(--color-pink-dark),
+        0 4px 10px -4px rgb(142 35 67 / 0.45);
+}
+
+/* 番号の丸：左上から光が当たったふくらみ */
+[class*="bg-num-"] {
+    background-image: radial-gradient(circle at 30% 25%, rgb(255 255 255 / 0.45), transparent 55%);
+    box-shadow:
+        inset 0 -3px 0 rgb(0 0 0 / 0.12),
+        0 3px 6px rgb(0 0 0 / 0.15);
+}
