@@ -45,5 +45,5 @@ new #[Title('言葉を選ぼう')] class extends Component {
         @endforelse
     </ol>
 
-    <x-mascot message="好きなところから はじめていいよ！" class="justify-center" />
+    <x-mascot message="ミロだよ。好きな言葉から いっしょに学ぼう！" class="justify-center" />
 </div>

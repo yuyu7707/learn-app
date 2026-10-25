@@ -50,7 +50,7 @@ new class extends Component {
     {{-- 絵の場所（イラストができたら差し替える） --}}
     <div class="flex flex-col items-center gap-4 rounded-3xl bg-linear-to-b from-sky-card to-mint px-6 pt-6 pb-5">
         <span class="inline-block animate-grow text-8xl leading-none" aria-hidden="true">{{ $term->icon ?? '🌱' }}</span>
-        <x-mascot :message="$term->name.'って、なんだろう？'" />
+        <x-mascot :message="$term->name.'って、なんだろう？ ミロが教えるね'" />
     </div>
 
     <p class="text-lg leading-loose text-ink">{{ $term->explanation }}</p>
