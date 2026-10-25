@@ -42,32 +42,56 @@ function tone(frequency, start, duration, volume = 0.3, type = 'triangle') {
     oscillator.stop(at + duration);
 }
 
-// 猫の「ニャー」：高さを上げてから下げ、こもった音にして鳴き声に近づける
-function meow() {
+/*
+ * 猫の鳴き声 1回分。高さを上げてから下げ、こもった音にして鳴き声に近づける。
+ * pitches：[はじめ, 上がりきり, いちばん高い, おわり] の高さ Hz
+ * length：長さ（秒）、start：鳴きはじめ（秒後）
+ */
+function meow(pitches, length, start = 0, volume = 0.22) {
+    const [from, rise, peak, to] = pitches;
     const oscillator = audioContext.createOscillator();
     const filter = audioContext.createBiquadFilter();
     const gain = audioContext.createGain();
-    const at = audioContext.currentTime;
+    const at = audioContext.currentTime + start;
 
     oscillator.type = 'sawtooth';
-    oscillator.frequency.setValueAtTime(480, at);
-    oscillator.frequency.linearRampToValueAtTime(780, at + 0.15);
-    oscillator.frequency.linearRampToValueAtTime(860, at + 0.3);
-    oscillator.frequency.exponentialRampToValueAtTime(520, at + 0.65);
+    oscillator.frequency.setValueAtTime(from, at);
+    oscillator.frequency.linearRampToValueAtTime(rise, at + length * 0.22);
+    oscillator.frequency.linearRampToValueAtTime(peak, at + length * 0.45);
+    oscillator.frequency.exponentialRampToValueAtTime(to, at + length);
 
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(1200, at);
-    filter.frequency.linearRampToValueAtTime(2200, at + 0.2);
-    filter.frequency.linearRampToValueAtTime(1000, at + 0.65);
+    filter.frequency.linearRampToValueAtTime(2200, at + length * 0.3);
+    filter.frequency.linearRampToValueAtTime(1000, at + length);
 
     gain.gain.setValueAtTime(0.0001, at);
-    gain.gain.exponentialRampToValueAtTime(0.22, at + 0.06);
-    gain.gain.setValueAtTime(0.22, at + 0.4);
-    gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.7);
+    gain.gain.exponentialRampToValueAtTime(volume, at + 0.05);
+    gain.gain.setValueAtTime(volume, at + length * 0.6);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + length);
 
     oscillator.connect(filter).connect(gain).connect(audioContext.destination);
     oscillator.start(at);
-    oscillator.stop(at + 0.7);
+    oscillator.stop(at + length);
+}
+
+// 鳴き声の種類。押すたびに順番に変わる
+const MEOWS = [
+    () => meow([480, 780, 860, 520], 0.7), // ニャー
+    () => meow([700, 1000, 1050, 820], 0.28), // ミャッ（子猫）
+    () => meow([450, 760, 900, 430], 1.0), // ニャ〜オ（甘える）
+    () => {
+        meow([560, 860, 900, 640], 0.22); // ニャニャッ（2回）
+        meow([600, 900, 960, 680], 0.24, 0.26);
+    },
+    () => meow([340, 560, 620, 400], 0.8), // ンニャー（低め）
+];
+
+let meowIndex = 0;
+
+function nextMeow() {
+    MEOWS[meowIndex % MEOWS.length]();
+    meowIndex++;
 }
 
 // pon：選んだとき（ポン） / pikon：つぎへ進むとき（ピコン） / nya：ミロを押したとき（ニャー）
@@ -90,7 +114,7 @@ function play(name) {
         tone(988, 0.12, 0.4, 0.32);
         tone(1976, 0.12, 0.2, 0.06, 'sine');
     } else if (name === 'nya') {
-        meow();
+        nextMeow();
     } else {
         tone(784, 0, 0.35, 0.35);
         tone(1568, 0, 0.18, 0.08, 'sine');
