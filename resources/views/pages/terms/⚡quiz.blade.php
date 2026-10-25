@@ -111,9 +111,14 @@ new class extends Component {
 
             {{-- 学び進めたごほうび（3つめ以降の言葉） --}}
             @if ($this->progress['position'] >= 3)
-                <x-miro-nap :message="$this->progress['position'] === $this->progress['total']
-                    ? $this->progress['total'].'つの言葉、ぜんぶ学んだね！'
-                    : $this->progress['position'].'つめまで来たね。'" />
+                {{-- 写真は進むたびに変わる：3つめはソファ、4つめ以降はニット、最後はばんざい --}}
+                @php($isLast = $this->progress['position'] === $this->progress['total'])
+                <x-miro-nap
+                    :photo="$isLast ? 'banzai' : ($this->progress['position'] === 3 ? 'sofa' : 'knit')"
+                    :message="$isLast
+                        ? $this->progress['total'].'つの言葉、ぜんぶ学んだね！'
+                        : $this->progress['position'].'つめまで来たね。'"
+                />
             @endif
         @else
             <flux:text>選択肢を1つ選んでみてください。</flux:text>

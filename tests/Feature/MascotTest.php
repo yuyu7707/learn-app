@@ -74,7 +74,19 @@ test('3つめの言葉のクイズで答えを選ぶと、おひるねのミロ�
         ->call('choose', $choice->id)
         ->assertSee('3つめまで来たね。')
         ->assertSee('ミロも おひるね中')
-        ->assertSee('images/miro-nap.jpg', false);
+        ->assertSee('images/miro-nap-sofa.jpg', false);
+});
+
+test('4つめの言葉のクイズでは、ニットの上で寝ているミロが出る', function () {
+    $terms = createTermsWithQuiz(5);
+    $choice = $terms[3]->quizQuestion->choices->first();
+
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::terms.quiz', ['term' => $terms[3]])
+        ->call('choose', $choice->id)
+        ->assertSee('4つめまで来たね。')
+        ->assertSee('images/miro-nap-knit.jpg', false);
 });
 
 test('最後の言葉のクイズでは、ぜんぶ学んだことをほめる', function () {
@@ -85,7 +97,8 @@ test('最後の言葉のクイズでは、ぜんぶ学んだことをほめる',
 
     Livewire::test('pages::terms.quiz', ['term' => $terms[4]])
         ->call('choose', $choice->id)
-        ->assertSee('5つの言葉、ぜんぶ学んだね！');
+        ->assertSee('5つの言葉、ぜんぶ学んだね！')
+        ->assertSee('images/miro-nap-banzai.jpg', false);
 });
 
 test('ホームには、おひるねのミロを出さない', function () {
